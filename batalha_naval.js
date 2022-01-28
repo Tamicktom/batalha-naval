@@ -42,7 +42,7 @@ function pocisionarElemento(elemento) {
     while (posicionarElemento != true) {
         var X = parseInt(Math.random() * 7);
         var Y = parseInt(Math.random() * 7);
-        console.log(X, Y)
+        console.log(X, Y);
         //~> Procurar aleatóriamente um espaço vazio dentro da matriz, verifica se o elemento vai caber ou na horizontal ou na vertical
         if (matrizJogador2[X][Y] == 0 && verificarEspaçoHorizontal(elemento, X, Y) == true) {
             //! Posiciona o elemento na horizontal
