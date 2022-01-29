@@ -11,6 +11,26 @@ porta_avioes = [5, 1]
 
 campo_jogador1 = np.zeros([linhas, colunas])
 campo_ia = np.zeros([linhas, colunas])
+campo_jogo_player = [
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+]
+campo_jogo_ia = [
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+]
 
 
 def verificacao(valor):
@@ -111,10 +131,6 @@ def inicializacao(vetor):
                 break
 
 
-inicializacao(campo_ia) #
-print(campo_ia)
-
-
 def posi_elem_jogador(vetor):
     contador = 0
     while contador <= (
@@ -196,4 +212,59 @@ def posi_elem_jogador(vetor):
             break
 
 
-posi_elem_jogador(campo_jogador1)
+def printarVetor(vetor, col):
+    print("   ", end="", flush=True)
+    for i in range(0, col):
+        print(i+1," ", end="",flush=True)
+    print("", flush=True)
+    for count, vetor in enumerate(vetor):
+        print(count+1, vetor)
+
+def jogo():
+    posi_elem_jogador(campo_jogador1)
+    inicializacao(campo_ia)
+    vez_player = True
+    vez_ia = False
+    turnos = 1
+    pontos_player = 0
+    pontos_ia = 0
+    while (pontos_player or pontos_ia) < 10:
+        while vez_player == True:
+            print("-" * 30, "\n", "turno: ", turnos)
+            print("Coordenadas disparadas")
+            printarVetor(campo_jogo_player, colunas)
+            print("escolha a casa para disparar!")
+            i = int(input("escolha a linha: "))
+            j = int(input("escolha a coluna: "))
+            if i<8 and j<8:
+                if campo_ia[i][j] != 0:
+                    print("você acertou")
+                    campo_jogo_player[i][j] = "X"
+                else:
+                    print("Você errou")
+                    campo_jogo_player[i][j] = "O"
+                    vez_player = False
+                    vez_ia = True
+                turnos += 1
+            else:
+                print("valores de Coordenadas inválidos")
+        while vez_ia == True:
+            print("-" * 30, "\n", "turno: ", turnos)
+            print("É a vez da IA")
+            i = linha_aleatorio()
+            j = coluna_aleatorio()
+            if i<8 and j<8:
+                if campo_jogador1[i][j] != 0:
+                    print("O bot acertou uma embarcação")
+                    campo_jogo_ia[i][j] = "X"
+                else:
+                    print("O bot errou")
+                    campo_jogo_ia[i][j] = "O"
+                    vez_player = True
+                    vez_ia = False
+                turnos += 1
+            else:
+                print("valores de Coordenadas inválidos")
+
+
+jogo()
